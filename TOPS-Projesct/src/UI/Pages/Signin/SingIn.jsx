@@ -1,12 +1,14 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { Button, Form, FormGroup, Input, Label } from "reactstrap";
+import { NavLink, useNavigate } from "react-router-dom";
 import { login } from "../../../Redux/Features/Auth/AuthSlice";
+import { Button, Form, FormGroup, Input, Label } from "reactstrap";
+import axios from "axios";
+import "./SignIn.css";
 
 function SingIn() {
   let [userdata, setUserData] = useState({
-    eamil: "admin@admin.com",
+    email: "admin@admin.com",
     password: "123456",
   });
 
@@ -15,21 +17,35 @@ function SingIn() {
   let navigate = useNavigate();
 
   function addData() {
-    
-    dispatch(login(userdata));
-    navigate("/");
+    console.log("userdata", userdata);
+    axios
+      .post("http://localhost:9999/user/signin", userdata)
+      .then((resData) => {
+        dispatch(login(resData?.data));
+        if (resData?.data?.data?.userType === "admin") {
+          navigate("/dashboard");
+        } else navigate("/");
+      })
+      .catch((err) => {
+        console.log("err", err);
+      });
   }
 
   return (
     <>
-      <div className="h-screen w-full bg-gray-400 grid place-content-center">
-        <div className="w-100">
-          <Form>
-            <FormGroup>
-              <Label for="exampleEmail" className=" d-flex ">
-                {" "}
-                Email
-              </Label>
+      <div className=" signin h-screen w-full  grid place-content-center">
+        <div className="w-100 p-3 form">
+          <div className="flex align-items-center justify-content-center flex-column gap-2 pb-5">
+            <h3>Welcome</h3>
+            <img
+              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRofgC_kbdLAEOqR2LbmxunJXz_kHSXUaKG6g&usqp=CAU"
+              alt=""
+              width={"70px"}
+              height={"70px"}
+            />
+          </div>
+          <Form className="mb-5">
+            <FormGroup floating>
               <Input
                 id="exampleEmail"
                 name="email"
@@ -38,10 +54,11 @@ function SingIn() {
                 onChange={(e) =>
                   setUserData({ ...userdata, email: e?.target?.value })
                 }
+                value={userdata?.email}
               />
+              <Label for="exampleEmail">Email</Label>
             </FormGroup>{" "}
-            <FormGroup>
-              <Label for="examplePassword">Password</Label>
+            <FormGroup floating>
               <Input
                 id="examplePassword"
                 name="email"
@@ -50,12 +67,20 @@ function SingIn() {
                 onChange={(e) =>
                   setUserData({ ...userdata, password: e?.target?.value })
                 }
+                value={userdata?.password}
               />
+              <Label for="examplePassword">Password</Label>
             </FormGroup>
             <Button color="success" onClick={() => addData()}>
               Submit
             </Button>
-          </Form>
+          </Form>{" "}
+          <p className="text-center fw-bold">
+            New On Our Platform?{" "}
+            <NavLink to={"/signin"}>
+              <span className="text-red-600">Create an account</span>
+            </NavLink>
+          </p>
         </div>
       </div>
     </>

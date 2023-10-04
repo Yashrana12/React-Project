@@ -14,6 +14,10 @@ import Cart from "../UI/Pages/Cart/Cart";
 import SingIn from "../UI/Pages/Signin/SingIn";
 import Profile from "../UI/Pages/Profile/Profile";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Signup from "../UI/Pages/Signup/Signup";
+import Dashboard from "../UI/Pages/Dashboard/Dashboard";
+import HeroPage from "../UI/Components/HeroPage/HeroPage"
+
 
 function RouterCom() {
   return (
@@ -21,6 +25,7 @@ function RouterCom() {
       <Provider store={authStore}>
         <BrowserRouter>
           <HeaderCom />
+
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/accessories" element={<Accessories />} />
@@ -31,8 +36,11 @@ function RouterCom() {
             <Route path="/edition" element={<NewEdition />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/signin" element={<SingIn />} />
+            <Route path="/signup" element={<Signup />} />
+            <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/profile" element={<Profile />} />
           </Routes>
+          <HeroPage />
         </BrowserRouter>
       </Provider>
     </>

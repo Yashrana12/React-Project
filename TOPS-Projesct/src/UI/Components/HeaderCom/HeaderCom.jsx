@@ -31,7 +31,7 @@ function HeaderCom() {
         <Navbar
           expand={"lg"}
           container={"sm"}
-          className="flex gap-3"
+          className="flex gap-2"
           fixed="top"
         >
           <NavbarBrand href="">
@@ -39,8 +39,8 @@ function HeaderCom() {
               <img
                 src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRofgC_kbdLAEOqR2LbmxunJXz_kHSXUaKG6g&usqp=CAU"
                 alt=""
-                width={"80px"}
-                height={"80px"}
+                width={"70px"}
+                height={"70px"}
               />
             </NavLink>
           </NavbarBrand>
