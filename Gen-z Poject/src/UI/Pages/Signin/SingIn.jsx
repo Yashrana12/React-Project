@@ -33,7 +33,7 @@ function SingIn() {
 
   return (
     <>
-      {/* <div className=" signin h-screen w-full  grid place-content-center">
+      <div className=" signin h-screen w-full  grid place-content-center">
         <div className="w-100 p-3 form">
           <div className="flex align-items-center justify-content-center flex-column gap-2 pb-5">
             <h3>Welcome</h3>
@@ -77,12 +77,12 @@ function SingIn() {
           </Form>{" "}
           <p className="text-center fw-bold">
             New On Our Platform?{" "}
-            <NavLink to={"/signin"}>
+            <NavLink to={"/signup"}>
               <span className="text-red-600">Create an account</span>
             </NavLink>
           </p>
         </div>
-      </div> */}
+      </div>
     </>
   );
 }
