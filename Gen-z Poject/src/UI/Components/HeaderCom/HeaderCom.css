@@ -2,6 +2,35 @@
   color: black !important;
 }
 a {
-  color: black !important;
+  color: white !important;
   text-decoration: none !important;
+}
+a:hover {
+  color: gray !important;
+  text-decoration: overline !important;
+}
+@media (max-width: 576px) {
+  .scont {
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 0px;
+  }
+}
+@media (min-width: 576px) {
+  .scont {
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 0px;
+  }
+}
+
+@media (min-width: 992px) {
+  .scont {
+    justify-content: end;
+    flex-direction: row;
+    align-items: center;
+    padding: 0px 0px;
+  }
 }

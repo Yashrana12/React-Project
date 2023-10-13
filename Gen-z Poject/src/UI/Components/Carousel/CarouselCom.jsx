@@ -3,44 +3,54 @@ import React from "react";
 function CarouselCom() {
   return (
     <>
-      <div className="h-screen w-full bg-cover bg-center relative bg-fixed">
-        {/* <img src="/Images/j.jpg" alt="" /> */}
-        <div className="absolute top-0 z-10 drop-shadow-md">
-          <img
-            // src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQS1EykB-iB1mLaNRbRe8BRI8_W2pJo3gtEiw&usqp=CAU"
-            alt=""
-          />
+      <div id="carouselExampleFade" className="carousel slide ">
+        <div className="carousel-inner mt-lg-5">
+          <div className="carousel-item active">
+            <img
+              src="https://www.swashaa.com/cdn/shop/files/leather_Bracelet_Banner_06-07-2023_-min_1512x.jpg?v=1688647134"
+              className="d-block w-100"
+              alt="..."
+            />
+          </div>
+          <div className="carousel-item">
+            <img
+              src="https://www.swashaa.com/cdn/shop/files/Hiphop_Collection_Banner__-min_1512x.jpg?v=1690889038"
+              className="d-block w-100"
+              alt="..."
+            />
+          </div>
+          <div className="carousel-item">
+            <img
+              src="https://www.swashaa.com/cdn/shop/collections/Hiphop_Collection_Banner__1_1600x.jpg?v=1690798373"
+              className="d-block w-100"
+              alt="..."
+            />
+          </div>
         </div>
-        <div
-          className="absolute top-30 left-0 text-gray-900 w-full"
-          style={{ fontSize: "200px" }}
+        <button
+          className="carousel-control-prev"
+          type="button"
+          data-bs-target="#carouselExampleFade"
+          data-bs-slide="prev"
         >
-          {/* <marquee
-            // eslint-disable-next-line react/no-unknown-property
-            behavior="alternate"
-            direction="left"
-            // eslint-disable-next-line react/no-unknown-property
-            scrollamount="40"
-            className="font-mono"
-          >
-            Let the chocolate melt your worries away..
-          </marquee> */}
-        </div>
-      </div>
-      <div
-        className="absolute left-0 text-yellow-500 w-full"
-        style={{ fontSize: "200px", top: "550px" }}
-      >
-        {/* <marquee
-          // eslint-disable-next-line react/no-unknown-property
-          behavior=""
-          direction="up"
-          // eslint-disable-next-line react/no-unknown-property
-          scrollamount="45"
-          className="font-mono"
+          <span
+            className="carousel-control-prev-icon"
+            aria-hidden="true"
+          ></span>
+          <span className="visually-hidden">Previous</span>
+        </button>
+        <button
+          className="carousel-control-next"
+          type="button"
+          data-bs-target="#carouselExampleFade"
+          data-bs-slide="next"
         >
-          ..heaven little our to welcome
-        </marquee> */}
+          <span
+            className="carousel-control-next-icon"
+            aria-hidden="true"
+          ></span>
+          <span className="visually-hidden">Next</span>
+        </button>
       </div>
     </>
   );

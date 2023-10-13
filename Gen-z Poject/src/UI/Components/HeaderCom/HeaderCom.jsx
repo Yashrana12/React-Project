@@ -17,21 +17,27 @@ import { NavLink } from "react-router-dom";
 import "./HeaderCom.css";
 import { useSelector } from "react-redux";
 
-function HeaderCom() {
+// eslint-disable-next-line react/prop-types
+function HeaderCom({ setTextSearch }) {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggle = () => setIsOpen(!isOpen);
 
-  const Auth = useSelector((state) => {
+  const auth = useSelector((state) => {
     return state.AUTH.user;
   });
+
+  const adminAuth = useSelector((state) => {
+    return state?.AUTH?.user?.userType === "admin";
+  });
+
   return (
     <>
       <div>
         <Navbar
           expand={"lg"}
           container={"sm"}
-          className="flex gap-2"
+          className="flex gap-2 bg-black  "
           fixed="top"
         >
           <NavbarBrand href="">
@@ -39,45 +45,67 @@ function HeaderCom() {
               <img
                 src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRofgC_kbdLAEOqR2LbmxunJXz_kHSXUaKG6g&usqp=CAU"
                 alt=""
-                width={"70px"}
-                height={"70px"}
+                width={"50px"}
+                height={"50px"}
               />
             </NavLink>
           </NavbarBrand>
           <NavbarToggler onClick={toggle} />
           <Collapse isOpen={isOpen} navbar>
             <Nav
-              className="me-auto text-sm font-bold justify-center gap-4"
+              className="me-auto text-sm font-bold justify-center gap-4 navbar "
               navbar
-              style={{ flex: 2 }}
+              style={{ flex: 1.8 }}
             >
-              <NavItem>
-                <NavLink to={"/accessories"}>Accessories</NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink to={"/ring"}>Ring</NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink to={"/chain"}>Chain</NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink to={"/cufflinks"}>Cufflinks</NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink to={"/bracelets"}>Bracelets</NavLink>
-              </NavItem>
+              {adminAuth ? (
+                <>
+                  <NavItem>
+                    <NavLink to={"/dashboard"}>Dashboard</NavLink>
+                  </NavItem>
+                  <NavItem>
+                    <NavLink to={"/dashboard/products"}>Products</NavLink>
+                  </NavItem>
+                  <NavItem>
+                    <NavLink to={"/dashboard/users"}>Users</NavLink>
+                  </NavItem>
+                  <NavItem>
+                    <NavLink to={"/dashboard/orders"}>Orders</NavLink>
+                  </NavItem>
+                </>
+              ) : (
+                <>
+                  <NavItem>
+                    <NavLink to={"/accessories"}>Accessories</NavLink>
+                  </NavItem>
+                  <NavItem>
+                    <NavLink to={"/ring"}>Ring</NavLink>
+                  </NavItem>
+                  <NavItem>
+                    <NavLink to={"/chain"}>Chain</NavLink>
+                  </NavItem>
+                  <NavItem>
+                    <NavLink to={"/cufflinks"}>Cufflinks</NavLink>
+                  </NavItem>
+                  <NavItem>
+                    <NavLink to={"/bracelets"}>Bracelets</NavLink>
+                  </NavItem>
 
-              <NavItem>
-                <NavLink to={"/edition"}>New Editions</NavLink>
-              </NavItem>
+                  <NavItem>
+                    <NavLink to={"/edition"}>New Editions</NavLink>
+                  </NavItem>
+                </>
+              )}
             </Nav>
             <Nav
-              style={{ flex: 1.4 }}
-              className="flex items-center gap-4 text-3xl justify-end"
+              style={{ flex: 1.6 }}
+              className=" scont flex items-center gap-4 text-3xl justify-center"
             >
               <div className="w-60">
                 <InputGroup>
-                  <Input placeholder="username" />
+                  <Input
+                    placeholder="Username"
+                    onChange={(e) => setTextSearch(e?.target?.value)}
+                  />
                   <InputGroupText className="bg-black text-white">
                     <CgSearch />
                   </InputGroupText>
@@ -88,7 +116,8 @@ function HeaderCom() {
                   <GiShoppingCart />
                 </NavLink>
               </NavItem>
-              {Auth ? (
+
+              {JSON.stringify(auth) !== "{}" ? (
                 <NavItem>
                   <NavLink to={"/profile"}>
                     <LuUserCircle2 />

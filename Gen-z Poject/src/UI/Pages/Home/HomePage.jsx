@@ -2,12 +2,22 @@ import React from "react";
 // import Headercom from "../../Components/HeaderCom/HeaderCom";
 import { Layout } from "antd";
 const { Content } = Layout;
+import CarouselCom from "../../Components/Carousel/CarouselCom";
+import BestSeller from "../../Components/BestSellerCom/BestSeller";
+import AboutUS from "../../Components/AboutCom/AboutUS";
+import ErrorBoundary from "antd/es/alert/ErrorBoundary";
 
 const HomePage = () => {
   return (
     <>
       <Layout className="layout">
-        <Content></Content>
+        <Content>
+          <CarouselCom />
+          <BestSeller />
+          <ErrorBoundary>
+            <AboutUS />
+          </ErrorBoundary>
+        </Content>
       </Layout>
     </>
   );

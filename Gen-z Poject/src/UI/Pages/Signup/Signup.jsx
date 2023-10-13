@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Button, Col, Form, FormGroup, Input, Label, Row } from "reactstrap";
 import { NavLink } from "react-router-dom";
+import "./Signup.css";
 
 function Signup() {
   let [userdata, setUserData] = useState({
@@ -20,10 +21,11 @@ function Signup() {
   });
   return (
     <>
-      <div className="grid h-auto w-full signup place-content-center pt-24 py-14 px-14">
-        <div className="signupform px-14 pb-10 rounded-md">
+    {/* h-auto w-full  */}
+      <div className="signup grid  place-content-center pt-24 py-14 px-14">
+        <div className="signupform px-14 pb-10 pt-10 ps-10 rounded-md text-white ">
           <div>
-            <h1 className="pb-6 font-mono"> Sign up</h1>
+            <h1 className="pb-6 font-mono text-white"> Sign up</h1>
           </div>
           <Form>
             <Row>
@@ -67,7 +69,7 @@ function Signup() {
                   <Input
                     id="exampleEmail"
                     name="email"
-                    placeholder="Enter email"
+                    placeholder="with a placeholder"
                     type="email"
                     value={userdata?.email}
                     onChange={(e) =>
@@ -79,11 +81,11 @@ function Signup() {
 
               <Col md={6}>
                 <FormGroup>
-                  <Label for="examplePassword">Number</Label>
+                  <Label for="examplePassword">Password</Label>
                   <Input
                     id="examplePassword"
-                    name="number"
-                    placeholder="password placeholder"
+                    name="password"
+                    placeholder="Password placeholder"
                     type="password"
                     value={userdata?.password}
                     onChange={(e) =>
@@ -148,7 +150,7 @@ function Signup() {
                     onChange={(e) =>
                       setUserData({
                         ...userdata,
-                        adress: [{ ...address[0], city: e?.target?.value }],
+                        address: [{ ...address[0], city: e?.target?.value }],
                       })
                     }
                   />
@@ -167,7 +169,7 @@ function Signup() {
                     onChange={(e) =>
                       setUserData({
                         ...userdata,
-                        adress: [{ ...address[0], state: e?.target?.value }],
+                        address: [{ ...address[0], state: e?.target?.value }],
                       })
                     }
                   />
@@ -181,7 +183,7 @@ function Signup() {
                     id="pincode"
                     name="pincode"
                     type="text"
-                    placeholder="enter pincode"
+                    placeholder="Enter pincode"
                     value={userdata?.address?.[0]?.pincode}
                     onChange={(e) =>
                       setUserData({
@@ -204,7 +206,7 @@ function Signup() {
             </div>
           </Form>
           <p className="text-center pt-4">
-            Already Loging
+            Already Login?{" "}
             <NavLink to={"/signin"}>
               <span className="text-red-600"> Login</span>
             </NavLink>

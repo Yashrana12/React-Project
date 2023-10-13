@@ -2,7 +2,8 @@ import React from "react";
 import { Button } from "reactstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { logout } from "../../../Redux/Features/Auth/AuthSlice";
+import { logout } from "../../../Redux/Features/AuthSlice/AuthSlice";
+import { toast } from "react-toastify";
 
 function Profile() {
   const AuthData = useSelector((state) => {
@@ -16,6 +17,7 @@ function Profile() {
   function removeUser() {
     dispatch(logout());
     navigate("/signin");
+    toast.success("Logout Successfully")
   }
   return (
     <>
