@@ -20,7 +20,7 @@ function BestSeller() {
               Our Best Seller Lorem ipsum dolor sit amet consectetur adipisicing
               elit. Deserunt, labore natus at quidem aperiam reprehenderit dicta
               assumenda libero temporibus maxime, illum aspernatur impedit sed
-              excepturi rerum sapiente facilis error nihil?
+              excepturi rerum sapiente facilis error nihil Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ipsam doloribus aspernatur architecto impedit excepturi esse expedita maxime! At dolorem eius asperiores et reprehenderit autem repellat amet cupiditate, possimus distinctio iste.
             </h1>
           </div>
           <div className="flex flex-wrap justify-center gap-2">
