@@ -5,8 +5,10 @@ const { Content } = Layout;
 import CarouselCom from "../../Components/Carousel/CarouselCom";
 import BestSeller from "../../Components/BestSellerCom/BestSeller";
 import AboutUS from "../AboutCom/AboutUS";
+import CategoryCom from "../../Components/CategoryCom/CategoryCom";
 
 const HomePage = () => {
+  window.scroll(0, 0);
   return (
     <>
       <Layout className="layout">
@@ -15,6 +17,7 @@ const HomePage = () => {
           <BestSeller />
 
           {/* <AboutUS /> */}
+          <CategoryCom />
         </Content>
       </Layout>
     </>

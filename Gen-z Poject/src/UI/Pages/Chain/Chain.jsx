@@ -1,4 +1,3 @@
-import React from "react";
 import { Container } from "reactstrap";
 import CardCom from "../../Components/CardCom/CardCom";
 import { useState } from "react";
@@ -7,27 +6,35 @@ import Products from "../../../Utils/Products.json";
 import axios from "axios";
 import { BE_URL } from "../../../Configue";
 import { toast } from "react-toastify";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchData } from "../../../Redux/Features/ProductSlice/ProductSlice";
+import { useNavigate } from "react-router-dom";
 
 function Chain({ textsearch }) {
   let [data, setData] = useState([]);
+  let dispatch = useDispatch();
+  let navigate = useNavigate();
+
   useEffect(() => {
-    axios({
-      method: "get",
-      url: `${BE_URL}product/getAll`,
-    })
-      .then((resData) => {
-        let newData = resData?.data?.data;
-        let filterData = newData?.filter?.((e) => {
-          return (
-            e?.category?.some?.((e) => e === "chain") &&
-            // eslint-disable-next-line no-undef
-            e?.title?.toLowerCase?.()?.includes?.(textsearch?.toLowerCase?.())
-          );
-        });
-        setData(filterData);
-      })
-      .catch((err) => toast.error(err?.message));
-  }, [textsearch]);
+    dispatch(fetchData());
+    window.scroll(0, 0);
+  }, []);
+
+  const { product, err } = useSelector((state) => {
+    return state.productReducer;
+  });
+
+  useEffect(() => {
+    let newdata = product?.filter?.((e) => {
+      return e?.category?.some?.((e) => e === "chain");
+    });
+    setData(newdata);
+  }, [product]);
+
+  let fetch = (id) => {
+    navigate(`/singleproduct/${id}`);
+    window.scroll(0, 0);
+  };
   return (
     <>
       <div className="accessories">
@@ -54,7 +61,7 @@ function Chain({ textsearch }) {
           "
           >
             {data?.map?.((e, i) => {
-              return <CardCom key={i} data={e} />;
+              return <CardCom key={i} data={e} onclick={fetch} />;
             })}
           </div>
         </Container>

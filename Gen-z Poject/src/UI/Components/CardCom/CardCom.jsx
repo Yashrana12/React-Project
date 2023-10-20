@@ -1,8 +1,8 @@
-import { Button, Card, CardBody, CardSubtitle, CardTitle } from "reactstrap";
+import {  Card, CardBody, CardSubtitle, CardTitle } from "reactstrap";
 import "./CardCom.css";
 
 // eslint-disable-next-line react/prop-types
-function CardCom({ data }) {
+function CardCom({ data,onclick }) {
   return (
     <>
       <Card
@@ -10,6 +10,8 @@ function CardCom({ data }) {
           width: "12rem",
         }}
         className="card overflow-hidden"
+        role="button"
+        onClick={() => onclick(data?._id)}
       >
         <div className="overflow-hidden">
           <img
@@ -26,7 +28,7 @@ function CardCom({ data }) {
             {/* eslint-disable-next-line react/prop-types */}
             {data?.price}
           </CardSubtitle>
-          <Button color="dark" >BUY NOW</Button>
+          
         </CardBody>
       </Card>
     </>

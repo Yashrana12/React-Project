@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import {
   Button,
@@ -17,18 +17,22 @@ import { addProduct } from "../../../../Redux/Features/ProductSlice/ProductSlice
 import Select from "react-select";
 
 // eslint-disable-next-line react/prop-types
-function ProductForm({ toggle, modal }) {
-  let [productdata, setProductData] = useState({
-    title: String,
-    description: String,
-    gender: String,
+function ProductForm({ toggle, modal, setProductData, productdata }) {
+  let [formProductdata, setFormProductData] = useState({
+    title: "",
+    description: "",
+    gender: "",
     price: Number,
-    thumbnail: String,
-    discountPercentage: Number,
+    thumbnail: "",
+    discountPercentage: "",
     category: [],
     matel: [],
-    availableStock: Number,
+    availableStock: "",
   });
+
+  useEffect(() => {
+    setFormProductData(productdata);
+  }, [productdata]);
 
   const options = [
     { value: "ring", label: "Ring" },
@@ -77,6 +81,7 @@ function ProductForm({ toggle, modal }) {
                       name="title"
                       placeholder="Enter Title"
                       type="text"
+                      // eslint-disable-next-line react/prop-types
                       value={productdata?.title}
                       onChange={(e) =>
                         setProductData({
@@ -96,6 +101,7 @@ function ProductForm({ toggle, modal }) {
                       id="exampleDescription"
                       name="description"
                       placeholder="Enter Description"
+                      // eslint-disable-next-line react/prop-types
                       value={productdata?.description}
                       onChange={(e) =>
                         setProductData({
@@ -117,6 +123,7 @@ function ProductForm({ toggle, modal }) {
                           <Label for="male">Male</Label>
                           <Input
                             id="male"
+                            // eslint-disable-next-line react/prop-types
                             checked={productdata?.gender === "male"}
                             type="radio"
                             onChange={() =>
@@ -130,6 +137,7 @@ function ProductForm({ toggle, modal }) {
                           <Label for="female">Female</Label>
                           <Input
                             id="female"
+                            // eslint-disable-next-line react/prop-types
                             checked={productdata.gender === "female"}
                             type="radio"
                             onChange={() =>
@@ -146,6 +154,7 @@ function ProductForm({ toggle, modal }) {
                           <Label for="kids">Kids</Label>
                           <Input
                             id="kids"
+                            // eslint-disable-next-line react/prop-types
                             checked={productdata.gender === "kids"}
                             type="radio"
                             onChange={() =>
@@ -166,6 +175,7 @@ function ProductForm({ toggle, modal }) {
                       id="examplePrice"
                       name="price"
                       placeholder="Enter Price"
+                      // eslint-disable-next-line react/prop-types
                       value={productdata?.price}
                       onChange={(e) =>
                         setProductData({
@@ -184,6 +194,7 @@ function ProductForm({ toggle, modal }) {
                     <Input
                       id="exampleDiscountedPercentage"
                       name="discountedPercentage"
+                      // eslint-disable-next-line react/prop-types
                       value={productdata?.discountPercentage}
                       onChange={(e) =>
                         setProductData({
@@ -203,6 +214,7 @@ function ProductForm({ toggle, modal }) {
                     <Input
                       id="exampleThumbnail"
                       name="thumbnail"
+                      // eslint-disable-next-line react/prop-types
                       value={productdata?.thumbnail}
                       onChange={(e) =>
                         setProductData({
@@ -220,6 +232,7 @@ function ProductForm({ toggle, modal }) {
                     <Input
                       id="exampleAvailbleStock"
                       name="svailbleStock"
+                      // eslint-disable-next-line react/prop-types
                       value={productdata?.availableStock}
                       onChange={(e) =>
                         setProductData({

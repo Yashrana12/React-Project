@@ -6,7 +6,7 @@ import { RiDeleteBin6Line } from "react-icons/ri";
 import { RiEdit2Line } from "react-icons/ri";
 import { deleteProduct } from "../../../../Redux/Features/ProductSlice/ProductSlice";
 
-function ProductTable({ setProductData }) {
+function ProductTable({ setProductData, toggle }) {
   const { product, err } = useSelector((state) => {
     return state?.productReducer;
   });
@@ -16,8 +16,10 @@ function ProductTable({ setProductData }) {
     dispatch(deleteProduct({ id: data?._id, index }));
   };
 
-  const updateHandler = (id, index) => {
-    dispatch();
+  const updateHandler = (data, index) => {
+    console.log("----------->", index);
+    setProductData(data);
+    toggle();
   };
   if (err.lenght > 0) {
     toast.error(err);

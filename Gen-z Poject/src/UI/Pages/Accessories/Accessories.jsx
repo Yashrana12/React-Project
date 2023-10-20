@@ -6,27 +6,35 @@ import "./Accessories.css";
 import axios from "axios";
 import { BE_URL } from "../../../Configue";
 import { toast } from "react-toastify";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { fetchData } from "../../../Redux/Features/ProductSlice/ProductSlice";
 
 function Accessories({ textsearch }) {
   let [productdata, setProductData] = useState([]);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    axios({
-      method: "get",
-      url: `${BE_URL}product/getAll`,
-    })
-      .then((resData) => {
-        let newData = resData?.data?.data;
-        let filterdata = newData?.filter?.((e) => {
-          return (
-            e?.category?.some?.((e) => e === "accessories") &&
-            e?.title?.toLowerCase?.()?.includes?.(textsearch?.toLowerCase?.())
-          );
-        });
-        setProductData(filterdata);
-      })
-      .catch((err) => toast.error(err?.message));
-  }, [textsearch]);
+    dispatch(fetchData());
+    window.scroll(0, 0);
+  }, []);
+
+  const { product, err } = useSelector((state) => {
+    return state?.productReducer;
+  });
+
+  useEffect(() => {
+    let data = product?.filter?.((e) => {
+      return e?.category?.some?.((e) => e === "accessories");
+    });
+    setProductData(data);
+  }, [product]);
+
+  let navigate = useNavigate();
+
+  const redirect = (id) => {
+    navigate(`/singaleproduct/${id}`);
+  };
 
   return (
     <>
@@ -49,7 +57,7 @@ function Accessories({ textsearch }) {
           "
           >
             {productdata?.map?.((e, i) => {
-              return <CardCom key={i} data={e} />;
+              return <CardCom key={i} data={e} onclick={redirect} />;
             })}
           </div>
         </Container>

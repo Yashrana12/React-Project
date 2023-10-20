@@ -3,21 +3,29 @@ import { useEffect, useState } from "react";
 import { Container } from "reactstrap";
 import Products from "../../../Utils/Products.json";
 import CardCom from "../../Components/CardCom/CardCom";
+import axios from "axios";
+import { BE_URL } from "../../../Configue";
+import { toast } from "react-toastify";
 
 function NewEdition({ textsearch }) {
   let [data, setData] = useState([]);
+
   useEffect(() => {
-    let productHandler = Products?.sort((a, b) => {
-      return b.price - a.price;
-    });
-    let filterData = productHandler?.filter?.((e) => {
-      return (
-        e?.category === "edition" &&
-        // eslint-disable-next-line no-undef
-        e?.title?.toLowerCase?.()?.includes?.(textsearch?.toLowerCase?.())
-      );
-    });
-    setData(filterData.slice(0, 20));
+    axios({
+      method: "get",
+      url: `${BE_URL}product/getAll`,
+    })
+      .then((resData) => {
+        let newData = resData?.data?.data;
+        let filterData = newData?.filterData?.((e) => {
+          return (
+            e?.category?.some?.((e) => e === "edition") &&
+            e?.title?.toLowerCase?.()?.includes?.(textsearch?.toLowerCase?.())
+          );
+        });
+        setData(filterData);
+      })
+      .catch((err) => toast.error(err?.message));
   }, [textsearch]);
   return (
     <>

@@ -13,7 +13,6 @@ import Profile from "../UI/Pages/Profile/Profile";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Signup from "../UI/Pages/Signup/Signup";
 import Dashboard from "../UI/Pages/Admin/Dashboard/Dashboard";
-// import CarouselCom from "../UI/Components/Carousel/CarouselCom";
 import Accessories from "../UI/Pages/Accessories/Accessories";
 import { useState } from "react";
 import Products from "../UI/Pages/Admin/Products/Products";
@@ -22,6 +21,9 @@ import Orders from "../UI/Pages/Admin/Orders/Orders";
 import FooterCom from "../UI/Components/FooterCom/FooterCom";
 import AboutUS from "../UI/Pages/AboutCom/AboutUS";
 import Analytics from "../UI/Pages/Admin/Analytics/Analytics";
+import SingleProduct from "../UI/Pages/SingleProduct/SingleProduct";
+import CategoryCom from "../UI/Components/CategoryCom/CategoryCom";
+import Contact from "../UI/Pages/Contact/Contact";
 
 function RouterCom() {
   let [textsearch, setTextSearch] = useState("");
@@ -53,6 +55,7 @@ function RouterCom() {
               element={<Bracelets textsearch={textsearch} />}
             />
             <Route path="/about" element={<AboutUS />} />
+            <Route path="/contact" element={<Contact />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/signin" element={<SingIn />} />
             <Route path="/signup" element={<Signup />} />
@@ -63,10 +66,11 @@ function RouterCom() {
               <Route path="analytics" element={<Analytics />} />
             </Route>
             <Route path="/profile" element={<Profile />} />
+            <Route path="/category" element={<CategoryCom />} />
+            <Route path="/singleproduct/:id" element={<SingleProduct />} />
           </Routes>
           {/* <RegisterForm /> */}
           <FooterCom />
-          {/* <CarouselCom /> */}
         </BrowserRouter>
       </Provider>
     </>

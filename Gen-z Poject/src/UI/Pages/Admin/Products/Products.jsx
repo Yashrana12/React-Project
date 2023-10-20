@@ -8,11 +8,13 @@ import { fetchData } from "../../../../Redux/Features/ProductSlice/ProductSlice"
 function Products() {
   const [modal, setModal] = useState(false);
   const toggle = () => setModal(!modal);
+  let [productdata, setProductData] = useState({});
 
   let dispath = useDispatch();
   useEffect(() => {
     dispath(fetchData());
   }, []);
+
   return (
     <>
       <Container className="my-5">
@@ -25,8 +27,13 @@ function Products() {
           </div>
         </div>
         <hr />
-        <ProductForm modal={modal} toggle={toggle} />
-        <ProductTable  />
+        <ProductForm
+          modal={modal}
+          toggle={toggle}
+          productdata={productdata}
+          setProductData={setProductData}
+        />
+        <ProductTable setProductData={setProductData} toggle={toggle} />
       </Container>
     </>
   );

@@ -1,35 +1,37 @@
-import React from "react";
 import CardCom from "../../Components/CardCom/CardCom";
 import { Container } from "reactstrap";
-import Products from "../../../Utils/Products.json";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { BE_URL } from "../../../Configue";
 import { toast } from "react-toastify";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { fetchData } from "../../../Redux/Features/ProductSlice/ProductSlice";
 
 function Bracelets({ textsearch }) {
   let [data, setData] = useState([]);
+  let dispatch = useDispatch();
+  let navigate = useNavigate();
 
-  
   useEffect(() => {
-    axios({
-      method: "get",
-      url: `${BE_URL}product/getAll`,
-    })
-    
-    .then((resData) => {
-        let newData = resData?.data?.data;
-        let filterData = newData?.filter?.((e) => {
-          return (
-            e?.category?.some?.((e)=> e === "bracelets")   &&
-            // eslint-disable-next-line no-undef
-            e?.title?.toLowerCase?.()?.includes?.(textsearch?.toLowerCase?.())
-          );
-        });
-        setData(filterData);
-      })
-      .catch((err)=>toast.error(err?.message))
-  },[textsearch]);
+    dispatch(fetchData());
+    window.scroll(0, 0);
+  }, []);
+
+  const { product, err } = useSelector((state) => {
+    return state.productReducer;
+  });
+
+  useEffect(() => {
+    let newdata = product?.filter?.((e) => {
+      return e?.category?.some?.((e) => e === "bracelets");
+    });
+    setData(newdata);
+  }, [product]);
+
+  let fetch = (id) => {
+    navigate(`/singleproduct/${id}`);
+  };
 
   return (
     <>
@@ -49,7 +51,7 @@ function Bracelets({ textsearch }) {
         </div>
         <div className="flex flex-wrap justify-center gap-3">
           {data?.map?.((e, i) => {
-            return <CardCom key={i} data={e} />;
+            return <CardCom key={i} data={e} onclick={fetch} />;
           })}
         </div>
       </Container>

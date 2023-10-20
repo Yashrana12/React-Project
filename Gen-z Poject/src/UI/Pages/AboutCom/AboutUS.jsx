@@ -5,6 +5,7 @@ import { FaShare } from "react-icons/fa";
 import "./AboutUs.css";
 
 function AboutUS() {
+  window.scroll(0, 0);
   return (
     <>
       {" "}

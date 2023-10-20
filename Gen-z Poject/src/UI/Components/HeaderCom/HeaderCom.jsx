@@ -15,7 +15,8 @@ import { GiShoppingCart } from "react-icons/gi";
 import { LuUserCircle2 } from "react-icons/lu";
 import { NavLink } from "react-router-dom";
 import "./HeaderCom.css";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { searchData } from "../../../Redux/Features/SearchSlice/SearchSlice";
 
 // eslint-disable-next-line react/prop-types
 function HeaderCom({ setTextSearch }) {
@@ -24,13 +25,20 @@ function HeaderCom({ setTextSearch }) {
   const toggle = () => setIsOpen(!isOpen);
 
   const auth = useSelector((state) => {
-    return state.AUTH.user;
+    return state?.authReduce?.user;
   });
 
   const adminAuth = useSelector((state) => {
-    return state?.AUTH?.user?.userType === "admin";
+    return state?.authReduce?.user?.userType === "admin";
   });
 
+  const dispatch = useDispatch();
+
+  const searchHandler = (e) => {
+    dispatch(searchData(e?.target?.value));
+  };
+
+  const cart = useSelector((state) => state?.cartReducer?.cart);
   return (
     <>
       <div>
@@ -69,7 +77,7 @@ function HeaderCom({ setTextSearch }) {
                     <NavLink to={"/dashboard/users"}>Users</NavLink>
                   </NavItem>
                   <NavItem>
-                    <NavLink to={"/dashboard/orders"}>Orders</NavLink>
+                    <NavLink to={"/dashboard/analytics"}>Analytics</NavLink>
                   </NavItem>
                 </>
               ) : (
@@ -91,7 +99,10 @@ function HeaderCom({ setTextSearch }) {
                   </NavItem>
 
                   <NavItem>
-                    <NavLink to={"/edition"}>New Editions</NavLink>
+                    <NavLink to={"/about"}>About</NavLink>
+                  </NavItem>
+                  <NavItem>
+                    <NavLink to={"/contact"}>Contact</NavLink>
                   </NavItem>
                 </>
               )}
@@ -104,7 +115,7 @@ function HeaderCom({ setTextSearch }) {
                 <InputGroup>
                   <Input
                     placeholder="Username"
-                    onChange={(e) => setTextSearch(e?.target?.value)}
+                    onChange={(e) => searchHandler(e)}
                   />
                   <InputGroupText className="bg-black text-white">
                     <CgSearch />
@@ -113,7 +124,15 @@ function HeaderCom({ setTextSearch }) {
               </div>
               <NavItem>
                 <NavLink to={"/cart"}>
-                  <GiShoppingCart />
+                  <span className="relative">
+                    <GiShoppingCart />
+                    <span
+                      className="text-sm absolute text-black"
+                      style={{ top: "-8px", right: "-5px" }}
+                    >
+                      {cart?.length}
+                    </span>
+                  </span>
                 </NavLink>
               </NavItem>
 
