@@ -210,7 +210,7 @@ function ProductForm({ toggle, modal }) {
                           thumbnail: e?.target?.value,
                         })
                       }
-                      placeholder="Add Image Url"
+                      placeholder=" Image Url"
                     />
                   </FormGroup>
                 </Col>
@@ -252,12 +252,12 @@ function ProductForm({ toggle, modal }) {
                 </Col>
                 <Col>
                   <FormGroup>
-                    <Label>Select Color</Label>
+                    <Label>Select Matel</Label>
                     <Select
                       options={matelOptions}
                       isMulti
                       components={animatedComs}
-                      placeholder={"Select Color"}
+                      placeholder={"Select matel"}
                       onChange={(e) =>
                         setProductData({
                           ...productdata,

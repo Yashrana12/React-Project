@@ -20,7 +20,8 @@ import Products from "../UI/Pages/Admin/Products/Products";
 import Users from "../UI/Pages/Admin/Users/Users";
 import Orders from "../UI/Pages/Admin/Orders/Orders";
 import FooterCom from "../UI/Components/FooterCom/FooterCom";
-// import RegisterForm from "../UI/Components/RegForm/RegisterForm";
+import AboutUS from "../UI/Pages/AboutCom/AboutUS";
+import Analytics from "../UI/Pages/Admin/Analytics/Analytics";
 
 function RouterCom() {
   let [textsearch, setTextSearch] = useState("");
@@ -51,7 +52,7 @@ function RouterCom() {
               path="/bracelets"
               element={<Bracelets textsearch={textsearch} />}
             />
-
+            <Route path="/about" element={<AboutUS />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/signin" element={<SingIn />} />
             <Route path="/signup" element={<Signup />} />
@@ -59,6 +60,7 @@ function RouterCom() {
               <Route path="products" element={<Products />} />
               <Route path="users" element={<Users />} />
               <Route path="orders" element={<Orders />} />
+              <Route path="analytics" element={<Analytics />} />
             </Route>
             <Route path="/profile" element={<Profile />} />
           </Routes>

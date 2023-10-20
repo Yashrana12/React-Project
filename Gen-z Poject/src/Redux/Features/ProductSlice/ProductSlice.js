@@ -5,6 +5,7 @@ import { BE_URL } from "../../../Configue";
 const initialState = {
   product: [],
   err: "",
+  topTenData: [],
 };
 
 export const fetchData = createAsyncThunk("product/fetchData", () => {

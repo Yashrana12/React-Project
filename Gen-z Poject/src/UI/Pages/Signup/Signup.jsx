@@ -1,7 +1,11 @@
 import { useState } from "react";
 import { Button, Col, Form, FormGroup, Input, Label, Row } from "reactstrap";
-import { NavLink } from "react-router-dom";
+import { NavLink, Navigate, useNavigate } from "react-router-dom";
 import "./Signup.css";
+import { useDispatch } from "react-redux";
+import axios from "axios";
+import { BE_URL } from "../../../Configue";
+import { toast } from "react-toastify";
 
 function Signup() {
   let [userdata, setUserData] = useState({
@@ -10,18 +14,66 @@ function Signup() {
     email: "",
     password: "",
     age: "",
-    address: [
-      {
-        add: "",
-        city: "",
-        state: "",
-        pncode: "",
-      },
-    ],
+    // address: [
+    //   {
+    //     add: "",
+    //     city: "",
+    //     state: "",
+    //     pncode: "",
+    //   },
+    // ],
   });
+
+  let [address, setAddress] = useState({
+    add: "",
+    city: "",
+    state: "",
+    pncode: "",
+  });
+
+  let nevigate = useNavigate();
+  let dispatch = useDispatch();
+
+  const submitHandler = () => {
+    axios({
+      method: "post",
+      url: `${BE_URL}user/signUP`,
+      data: {
+        ...userdata,
+        address: [address],
+      },
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `barer ${JSON.parse(localStorage.getItem("token"))}`,
+      },
+    })
+      .then((resData) => {
+        dispatch(login(resData?.data));
+        Navigate("/");
+        toast.success("signup success");
+      })
+      .catch((err) => {
+        toast.error(err?.message);
+      });
+
+    setUserData({
+      name: "",
+      number: "",
+      email: "",
+      password: "",
+      age: "",
+    });
+
+    setAddress({
+      add: "",
+      city: "",
+      state: "",
+      pincode: "",
+    });
+  };
   return (
     <>
-    {/* h-auto w-full  */}
+      {/* h-auto w-full  */}
       <div className="signup grid  place-content-center pt-24 py-14 px-14">
         <div className="signupform px-14 pb-10 pt-10 ps-10 rounded-md text-white ">
           <div>
@@ -104,7 +156,7 @@ function Signup() {
                     id="age"
                     name="age"
                     placeholder="Enter age"
-                    type="text"
+                    type="number"
                     value={userdata?.age}
                     onChange={(e) =>
                       setUserData({ ...userdata, age: e?.target?.value })
@@ -120,17 +172,20 @@ function Signup() {
                     id="address"
                     name="address"
                     type="text"
-                    value={userdata?.address?.[0]?.add}
+                    value={address?.add}
+                    // onChange={(e) =>
+                    //   setUserData({
+                    //     ...userdata,
+                    //     address: [
+                    //       {
+                    //         ...address[0],
+                    //         add: e?.target?.value,
+                    //       },
+                    //     ],
+                    //   })
+                    // }
                     onChange={(e) =>
-                      setUserData({
-                        ...userdata,
-                        address: [
-                          {
-                            ...address[0],
-                            add: e?.target?.value,
-                          },
-                        ],
-                      })
+                      setAddress({ ...address, add: e?.target?.value })
                     }
                   />
                 </FormGroup>
@@ -146,13 +201,16 @@ function Signup() {
                     name="city"
                     placeholder="Enter city"
                     type="text"
-                    value={userdata?.address?.[0]?.city}
+                    value={address?.city}
                     onChange={(e) =>
-                      setUserData({
-                        ...userdata,
-                        address: [{ ...address[0], city: e?.target?.value }],
-                      })
+                      setAddress({ ...address, city: e?.target?.value })
                     }
+                    // onChange={(e) =>
+                    //   setUserData({
+                    //     ...userdata,
+                    //     address: [{ ...address[0], city: e?.target?.value }],
+                    //   })
+                    // }
                   />
                 </FormGroup>
               </Col>
@@ -165,13 +223,16 @@ function Signup() {
                     name="state"
                     placeholder="Enter state"
                     type="text"
-                    value={userdata?.address?.[0]?.state}
+                    value={address?.state}
                     onChange={(e) =>
-                      setUserData({
-                        ...userdata,
-                        address: [{ ...address[0], state: e?.target?.value }],
-                      })
+                      setAddress({ ...address, state: e?.target?.value })
                     }
+                    // onChange={(e) =>
+                    //   setUserData({
+                    //     ...userdata,
+                    //     address: [{ ...address[0], state: e?.target?.value }],
+                    //   })
+                    // }
                   />
                 </FormGroup>
               </Col>
@@ -184,18 +245,21 @@ function Signup() {
                     name="pincode"
                     type="text"
                     placeholder="Enter pincode"
-                    value={userdata?.address?.[0]?.pincode}
+                    value={address?.pincode}
                     onChange={(e) =>
-                      setUserData({
-                        ...userdata,
-                        address: [
-                          {
-                            ...address[0],
-                            pincode: e?.target?.value,
-                          },
-                        ],
-                      })
+                      setAddress({ ...address, pincode: e?.target?.value })
                     }
+                    // onChange={(e) =>
+                    //   setUserData({
+                    //     ...userdata,
+                    //     address: [
+                    //       {
+                    //         ...address[0],
+                    //         pincode: e?.target?.value,
+                    //       },
+                    //     ],
+                    //   })
+                    // }
                   />
                 </FormGroup>
               </Col>

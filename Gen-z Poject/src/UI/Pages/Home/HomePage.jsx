@@ -4,8 +4,7 @@ import { Layout } from "antd";
 const { Content } = Layout;
 import CarouselCom from "../../Components/Carousel/CarouselCom";
 import BestSeller from "../../Components/BestSellerCom/BestSeller";
-import AboutUS from "../../Components/AboutCom/AboutUS";
-import ErrorBoundary from "antd/es/alert/ErrorBoundary";
+import AboutUS from "../AboutCom/AboutUS";
 
 const HomePage = () => {
   return (
@@ -14,9 +13,8 @@ const HomePage = () => {
         <Content>
           <CarouselCom />
           <BestSeller />
-          <ErrorBoundary>
-            <AboutUS />
-          </ErrorBoundary>
+
+          {/* <AboutUS /> */}
         </Content>
       </Layout>
     </>

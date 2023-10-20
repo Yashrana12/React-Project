@@ -1,20 +1,33 @@
 import { Container } from "reactstrap";
 import { useEffect, useState } from "react";
 import CardCom from "../../Components/CardCom/CardCom";
-import Product from "../../../Utils/Products.json";
+// import Product from "../../../Utils/Products.json";
 import "./Accessories.css";
+import axios from "axios";
+import { BE_URL } from "../../../Configue";
+import { toast } from "react-toastify";
 
 function Accessories({ textsearch }) {
-  let [data, setData] = useState([]);
+  let [productdata, setProductData] = useState([]);
+
   useEffect(() => {
-    let filterdata = Product?.filter?.((e) => {
-      return (
-        e?.category === "accessories" &&
-        e?.title?.toLowerCase?.()?.includes?.(textsearch?.toLowerCase?.())
-      );
-    });
-    setData(filterdata);
+    axios({
+      method: "get",
+      url: `${BE_URL}product/getAll`,
+    })
+      .then((resData) => {
+        let newData = resData?.data?.data;
+        let filterdata = newData?.filter?.((e) => {
+          return (
+            e?.category?.some?.((e) => e === "accessories") &&
+            e?.title?.toLowerCase?.()?.includes?.(textsearch?.toLowerCase?.())
+          );
+        });
+        setProductData(filterdata);
+      })
+      .catch((err) => toast.error(err?.message));
   }, [textsearch]);
+
   return (
     <>
       <div className="accessories">
@@ -35,7 +48,7 @@ function Accessories({ textsearch }) {
             className="flex flex-wrap justify-center gap-3 pro
           "
           >
-            {data?.map?.((e, i) => {
+            {productdata?.map?.((e, i) => {
               return <CardCom key={i} data={e} />;
             })}
           </div>

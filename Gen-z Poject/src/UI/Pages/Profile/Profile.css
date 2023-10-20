@@ -1,0 +1,7 @@
+.pro {
+  background-image: url("../../../../public/Images/1600x.webp");
+  background-position: top;
+  background-size: cover;
+  backdrop-filter: blur(2px);
+  /* background-attachment: fixed; */
+}

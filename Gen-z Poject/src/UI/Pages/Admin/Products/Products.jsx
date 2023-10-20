@@ -1,9 +1,8 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button, Container } from "reactstrap";
 import ProductForm from "./ProductForm";
 import ProductTable from "./ProductTable";
 import { useDispatch } from "react-redux";
-import { useEffect } from "react";
 import { fetchData } from "../../../../Redux/Features/ProductSlice/ProductSlice";
 
 function Products() {
@@ -27,7 +26,7 @@ function Products() {
         </div>
         <hr />
         <ProductForm modal={modal} toggle={toggle} />
-        <ProductTable />
+        <ProductTable  />
       </Container>
     </>
   );

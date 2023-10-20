@@ -3,19 +3,34 @@ import CardCom from "../../Components/CardCom/CardCom";
 import { Container } from "reactstrap";
 import Products from "../../../Utils/Products.json";
 import { useState, useEffect } from "react";
+import axios from "axios";
+import { BE_URL } from "../../../Configue";
+import { toast } from "react-toastify";
 
 function Bracelets({ textsearch }) {
   let [data, setData] = useState([]);
+
+  
   useEffect(() => {
-    let filterData = Products?.filter?.((e) => {
-      return (
-        e?.category === "bracelets" &&
-        // eslint-disable-next-line no-undef
-        e?.title?.toLowerCase?.()?.includes?.(textsearch?.toLowerCase?.())
-      );
-    });
-    setData(filterData);
-  }, [textsearch]);
+    axios({
+      method: "get",
+      url: `${BE_URL}product/getAll`,
+    })
+    
+    .then((resData) => {
+        let newData = resData?.data?.data;
+        let filterData = newData?.filter?.((e) => {
+          return (
+            e?.category?.some?.((e)=> e === "bracelets")   &&
+            // eslint-disable-next-line no-undef
+            e?.title?.toLowerCase?.()?.includes?.(textsearch?.toLowerCase?.())
+          );
+        });
+        setData(filterData);
+      })
+      .catch((err)=>toast.error(err?.message))
+  },[textsearch]);
+
   return (
     <>
       <Container className="py-24 text-center drop-shadow-md">
